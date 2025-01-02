@@ -8,6 +8,7 @@ import en from './locales/en.json'
 import es from './locales/es.json'
 
 const i18n = createI18n({
+  legacy: false,
   locale: 'en',
   fallbackLocale: 'en',
   messages: {
@@ -21,4 +22,4 @@ const app = createApp(App)
 app.use(router)
 app.use(i18n)
 
-app.mount('#app')
+app.mount('#root')

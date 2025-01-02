@@ -1,21 +1,47 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
+import AppHeader from './components/AppHeader.vue'
+import SoftKeyBar from './components/SoftKeyBar.vue'
+
+function handleSoftKeyClick(position) {
+  switch (position) {
+    case 'start':
+      // TODO: setMenuVisible(!menuVisible);
+      break
+    case 'center':
+      break
+    // This is the default behavior of Cloud Phone
+    // It cannot be overriden by widgets
+    case 'end':
+      history.back()
+      break
+  }
+}
 </script>
 
 <template>
   <header>
+    <AppHeader :title="t('cloudphone')" />
     <img alt="Cloud Phone logo" class="logo" src="@/assets/icon.png" width="125" height="125" />
 
     <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
       </nav>
     </div>
   </header>
+
+  <SoftKeyBar
+    :buttons="{
+      start: { icon: 'menu' },
+      center: { title: t('select'), icon: 'select' },
+      end: { icon: 'back' },
+    }"
+    :onSoftKeyClick="handleSoftKeyClick"
+  />
 
   <RouterView />
 </template>

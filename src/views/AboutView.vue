@@ -1,15 +1,15 @@
+<script setup>
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
+</script>
+
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+  <section id="app">
+    <h2>{{ t('about') }}</h2>
+    <p>{{ t('about.description') }}</p>
+  </section>
 </template>
 
 <style>
-@media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-  }
-}
+@import '../assets/home.css';
 </style>

@@ -6,6 +6,6 @@
   "privacy": "Privacidad",
   "select": "Seleccionar",
   "language": "Idioma",
-  "home.description": "Este es un widget de demostración para Cloud Phone que utiliza React. Obtenga más información en https://cloudfone.com",
+  "home.description": "Este es un widget de demostración para Cloud Phone que utiliza Vue.js. Obtenga más información en https://cloudfone.com",
   "about.description": "¡Bienvenido a la página Acerca de nosotros! Cloud Phone de CloudMosa ofrece tecnología que permite que los teléfonos con funciones básicas ejecuten aplicaciones atractivas, lo que hace posible el acceso a Internet moderno para las comunidades más desatendidas del mundo."
 }

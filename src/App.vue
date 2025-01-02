@@ -1,14 +1,22 @@
 <script setup>
+import { ref } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 import AppHeader from './components/AppHeader.vue'
 import SoftKeyBar from './components/SoftKeyBar.vue'
+import OptionsMenu from './components/OptionsMenu.vue'
+
+const isMenuVisible = ref(location.hash.includes('#menu'))
+
+function handleMenuItemSelected() {
+  isMenuVisible.value = false
+}
 
 function handleSoftKeyClick(position) {
   switch (position) {
     case 'start':
-      // TODO: setMenuVisible(!menuVisible);
+      isMenuVisible.value = !isMenuVisible.value
       break
     case 'center':
       break
@@ -42,6 +50,18 @@ function handleSoftKeyClick(position) {
     }"
     :onSoftKeyClick="handleSoftKeyClick"
   />
+
+  <OptionsMenu
+    :visible="isMenuVisible"
+    @menu-item-selected="handleMenuItemSelected"
+    @close="handleMenuItemSelected"
+  >
+    <RouterLink to="/about">{{ t('about') }}</RouterLink>
+    <RouterLink to="/settings">{{ t('settings') }}</RouterLink>
+    <a href="https://www.cloudfone.com/dev-privacy" target="_self">
+      {{ t('privacy') }}
+    </a>
+  </OptionsMenu>
 
   <RouterView />
 </template>

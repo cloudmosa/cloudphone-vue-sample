@@ -1,0 +1,11 @@
+{
+  "cloudphone": "Cloud Phone",
+  "vuedemo": "Vue.js Demo",
+  "about": "About",
+  "settings": "Settings",
+  "privacy": "Privacy",
+  "select": "Select",
+  "language": "Language",
+  "home.description": "This is a demo widget for Cloud Phone using React. Learn more at https://cloudfone.com",
+  "about.description": "Welcome to the About page! Cloud Phone by CloudMosa provides technology that enables feature phones to run compelling applications, making modern internet access possible for the world's most underserved communities."
+}

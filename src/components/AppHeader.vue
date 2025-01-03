@@ -1,12 +1,20 @@
 <script setup>
+import { watch } from 'vue'
 import icon from '@/assets/icon.png?inline&url'
 
-defineProps({
+const props = defineProps({
   title: {
     type: String,
     required: true,
   },
 })
+
+watch(
+  () => props.title,
+  (newTitle) => {
+    document.title = newTitle
+  },
+)
 </script>
 
 <template>

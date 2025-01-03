@@ -34,7 +34,7 @@ watch(
 )
 
 const handlePopState = () => {
-  if (!window.location.hash.includes('#menu')) {
+  if (location.hash.includes('#menu')) {
     props.onClose()
   }
 }
@@ -43,6 +43,7 @@ const handlePopState = () => {
 const handleKeyDown = (e) => {
   if (!props.visible) return
   const items = menuRef.value?.querySelectorAll('[role="menuitem"]')
+
   if (!items?.length) return
 
   switch (e.key) {
@@ -58,7 +59,7 @@ const handleKeyDown = (e) => {
       e.preventDefault()
       if (items[focusedIndex.value]) {
         items[focusedIndex.value].click()
-        const children = slots.default?.() || []
+        const children = getNestedChildren(slots.default?.() || [])
         props.onMenuItemSelected(children[focusedIndex.value])
       }
       break
@@ -66,8 +67,15 @@ const handleKeyDown = (e) => {
 }
 
 // Handle click events for menu item selection
-const handleClick = (index) => {
-  const children = slots.default?.() || []
+const handleClick = (event, index) => {
+  // Anchor links are used as buttons
+  // Relative URLs (i.e. '/settings') or external HTTPS links use default
+  if (event.target instanceof HTMLAnchorElement) {
+    const href = event.target.getAttribute('href')
+    if (href.startsWith('#')) event.preventDefault()
+  }
+
+  const children = getNestedChildren(slots.default?.() || [])
   props.onMenuItemSelected(children[index])
 }
 
@@ -81,11 +89,7 @@ watch(focusedIndex, (newIndex) => {
   })
 })
 
-watch(menuRef, (newRef) => {
-  if (newRef) {
-    autoFocusFirstFocusable(menuRef.value)
-  }
-})
+watch(menuRef, (newRef) => autoFocusFirstFocusable(newRef?.value))
 
 // Lifecycle hooks for event listeners
 onMounted(() => {
@@ -97,19 +101,27 @@ onUnmounted(() => {
   window.removeEventListener('popstate', handlePopState)
   window.removeEventListener('keydown', handleKeyDown)
 })
+
+// Workaround for nested HTML elements created with v-for loop
+const getNestedChildren = (slots) => {
+  if (slots.length === 1 && slots[0].children) {
+    return slots[0].children
+  }
+  return slots
+}
 </script>
 
 <template>
   <menu v-if="visible" ref="menuRef" role="menu" :hidden="!visible" :aria-hidden="!visible">
     <component
-      v-for="(child, index) in slots.default?.() || []"
+      v-for="(child, index) in getNestedChildren(slots.default?.() || [])"
       :key="index"
       :is="child"
       role="menuitem"
       :tabindex="index"
       :autofocus="index === focusedIndex"
       :class="{ focused: index === focusedIndex }"
-      @click="() => handleClick(index)"
+      @click="(e) => handleClick(e, index)"
     />
   </menu>
 </template>
@@ -152,6 +164,10 @@ menu > * {
 menu > a {
   text-decoration: none;
   outline: none;
+}
+
+:global(menu > *.focused, menu > *:focus, menu > *:active) {
+  background-color: #1971e6;
 }
 
 menu > *.focused,

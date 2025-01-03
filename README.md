@@ -68,7 +68,7 @@ Because developers cannot override the RSK behavior, clicking RSK also calls `hi
 
 [GitHub Pages](https://pages.github.com/) offers free hosting for public open-source repositories. This project uses the official [deploy-pages](https://github.com/actions/deploy-pages) GitHub Action to build and deploy static HTML, CSS, and JS. Set the [`base` path configuration](https://v2.vitejs.dev/config/#base) in `vite.config.js` to match your repository name and ensure the `path` provided to the `upload-pages-artifact` GitHub Action matches the default `dist/` directory.
 
-:warning <u>Production</u>: although it's possible to configure [custom domain names](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/about-custom-domains-and-github-pages), "GitHub Pages is not intended for or allowed to be used... either facilitating commercial transactions or providing commercial software" ([see Prohibited Uses](https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages#prohibited-uses)). Use GitHub Pages for production applications at your own risk.
+:warning: <u>Production</u>: although it's possible to configure [custom domain names](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/about-custom-domains-and-github-pages), "GitHub Pages is not intended for or allowed to be used... either facilitating commercial transactions or providing commercial software" ([see Prohibited Uses](https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages#prohibited-uses)). Use GitHub Pages for production applications at your own risk.
 
 ## Developer Program
 
